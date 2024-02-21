@@ -161,3 +161,47 @@ void print_error(char *func) {
   LocalFree(buffer);
 }
 #endif
+
+/* Hex and ASCII print routines for debug
+ */
+int hex_print_enabled = 0;
+
+void hex_print(char marker, unsigned char *buf, int bytes)
+    {
+    int byteidx;
+    int prtbytes;
+    int linebytes = 16;
+
+    if (!hex_print_enabled)
+        return;
+    if (0 < bytes)
+        {
+        fprintf(stderr, "%c [%02x] ", marker, *buf); /* message type */
+        buf++;
+        bytes--;
+        }
+    else
+        return;
+    for (prtbytes = 0; prtbytes < bytes; prtbytes += linebytes)
+        {
+        for (byteidx = 0; (byteidx < linebytes) && ((prtbytes + byteidx)) < bytes; byteidx++)
+            fprintf(stderr, "%02x ", buf[prtbytes + byteidx]);
+        for (; byteidx < linebytes; byteidx++)
+            fprintf(stderr, "   ");
+        fprintf(stderr, "|");
+        for (byteidx = 0; (byteidx < linebytes) && ((prtbytes + byteidx)) < bytes; byteidx++)
+            {
+            if (0x20 <= buf[prtbytes + byteidx] && buf[prtbytes + byteidx] < 0x7f)
+                fprintf(stderr, "%c", buf[prtbytes + byteidx]);
+            else
+                fprintf(stderr, ".");
+            }
+        for (; byteidx < linebytes; byteidx++)
+            fprintf(stderr, " ");
+        if ((prtbytes + linebytes) < bytes)
+            fprintf(stderr, "|\n       ");
+        else
+            fprintf(stderr, "|\n");
+        }
+    }
+

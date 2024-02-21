@@ -36,4 +36,8 @@ char *strsep(char **sp, char *sep);
 const char *quote_arg(const char *arg);
 void print_error(char *func);
 #endif
+
+extern int hex_print_enabled;
+void hex_print(char marker, unsigned char *buf, int bytes);
+
 #endif  // TTYD_UTIL_H

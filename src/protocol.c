@@ -173,6 +173,8 @@ static void wsi_output(struct lws *wsi, pty_buf_t *buf) {
   memcpy(ptr + 1, buf->base, buf->len);
   size_t n = buf->len + 1;
 
+  hex_print('<', ptr, n);
+
   if (lws_write(wsi, (unsigned char *)ptr, n, LWS_WRITE_BINARY) < n) {
     lwsl_err("write OUTPUT to WS\n");
   }
@@ -312,6 +314,7 @@ int callback_tty(struct lws *wsi, enum lws_callback_reasons reason, void *user, 
             lwsl_err("uv_write: %s (%s)\n", uv_err_name(err), uv_strerror(err));
             return -1;
           }
+          hex_print('>', pss->buffer, pss->len);
           break;
         case RESIZE_TERMINAL:
           if (pss->process == NULL) break;

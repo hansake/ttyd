@@ -81,8 +81,9 @@ static const struct option options[] = {{"port", required_argument, NULL, 'p'},
                                         {"debug", required_argument, NULL, 'd'},
                                         {"version", no_argument, NULL, 'v'},
                                         {"help", no_argument, NULL, 'h'},
+                                        {"hexdump", no_argument, NULL, 'x'},
                                         {NULL, 0, 0, 0}};
-static const char *opt_string = "p:i:U:c:H:u:g:s:w:I:b:P:6aSC:K:A:Wt:T:Om:oBd:vh";
+static const char *opt_string = "p:i:U:c:H:u:g:s:w:I:b:P:6aSC:K:A:Wt:T:Om:oBd:vhx";
 
 static void print_help() {
   // clang-format off
@@ -125,7 +126,8 @@ static void print_help() {
 #endif
           "    -d, --debug             Set log level (default: 7)\n"
           "    -v, --version           Print the version and exit\n"
-          "    -h, --help              Print this text and exit\n\n"
+          "    -h, --help              Print this text and exit\n"
+          "    -x, --hexdump           Enable hex+ascii dump of input/output\n\n"
           "Visit https://github.com/tsl0922/ttyd to get more information and report bugs.\n",
           TTYD_VERSION
   );
@@ -349,6 +351,9 @@ int main(int argc, char **argv) {
       case 'v':
         printf("ttyd version %s\n", TTYD_VERSION);
         return 0;
+      case 'x':
+        hex_print_enabled = 1;
+        break;
       case 'd':
         debug_level = parse_int("debug", optarg);
         break;

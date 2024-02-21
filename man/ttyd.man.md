@@ -104,6 +104,9 @@ ttyd 1 "September 2016" ttyd "User Manual"
   -h, --help
       Print this text and exit
 
+  -x, --hexdump
+      Print hex and ASCII of data to and from the terminal
+
 # CLIENT OPTIONS
 ttyd has a mechanism to pass server side command-line arguments to the browser page which is called **client options**:
 
