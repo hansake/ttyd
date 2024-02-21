@@ -91,6 +91,7 @@ OPTIONS:
     -d, --debug             Set log level (default: 7)
     -v, --version           Print the version and exit
     -h, --help              Print this text and exit
+    -x, --hexdump           Enable hex+ascii dump of input/output
 ```
 
 Read the example usage on the [wiki](https://github.com/tsl0922/ttyd/wiki/Example-Usage).
@@ -103,3 +104,8 @@ Modern browsers, See [Browser Support](https://github.com/xtermjs/xterm.js#brows
 
 * [Wetty](https://github.com/krishnasrinivas/wetty): [Node](https://nodejs.org) based web terminal (SSH/login)
 * [GoTTY](https://github.com/yudai/gotty): [Go](https://golang.org) based web terminal
+
+## Debugging data flow through ttyd
+
+A debug flag -x is added for showing data traffic through ttyd.
+The data is shown as hex and ASCII.
