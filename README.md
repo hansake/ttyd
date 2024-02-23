@@ -109,3 +109,13 @@ Modern browsers, See [Browser Support](https://github.com/xtermjs/xterm.js#brows
 
 A debug flag -x is added for showing data traffic through ttyd.
 The data is shown as hex and ASCII.
+
+Used to understand why ZMODEM file transfer did not work when ttyd is used together with a serial device.
+Based on this I developed a simple serial tty device to STDIO connector.
+[hansake/serport: Connects serial tty device to STDIO. To be used with ttyd.](https://github.com/hansake/serport)
+
+```
+ttyd --hexdump --writable -t enableZmodem=true -p 7680 -t fontSize=16 -w /home/hal serport -b 9600 /dev/ttyUSB0
+```
+When using this debug command I discovered that the ZMODEM protocol sent data byte by byte
+which did not work very well with the zmodem.js implementation used in ttyd.
